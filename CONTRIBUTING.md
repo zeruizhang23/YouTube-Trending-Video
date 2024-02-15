@@ -26,7 +26,7 @@ If you have made changes that you believe would improve the project, we encourag
 
 ### Code of Conduct
 
-All contributors are expected to follow our [Code of Conduct](https://github.com/marinatian/YouTube-Trending-Video/blob/main/CodeofConduct.Rmd). Please read it before participating, as it outlines our expectations for behavior within our community and provides details on reporting unacceptable behavior.
+All contributors are expected to follow our [Code of Conduct](https://github.com/marinatian/YouTube-Trending-Video/blob/main/CODE_OF_CONDUCT.md). Please read it before participating, as it outlines our expectations for behavior within our community and provides details on reporting unacceptable behavior.
 
 ## Getting Help
 
