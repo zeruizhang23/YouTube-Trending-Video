@@ -3,7 +3,7 @@ from dash import dcc, html, Input, Output
 import plotly.express as px
 import pandas as pd
 
-df = pd.read_csv("/Users/chenshiyi/desktop/Trending-Video.csv")
+df = pd.read_csv("YouTube-Trending-Video.csv")
 
 # Assuming df is your DataFrame loaded with the YouTube data
 df['publishedAt'] = pd.to_datetime(df['publishedAt'])
