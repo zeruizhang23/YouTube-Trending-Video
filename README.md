@@ -9,6 +9,7 @@ In the dynamic landscape of YouTube, it's crucial to understand content trends a
 ## Data Description
 We utilize the YouTube Trending Video Dataset, focusing on data from the USA, Canada, and Mexico over the most recent three months. The dataset includes variables like video ID, title, channel title, publication and trending dates, categories, viewer engagement metrics, and more.
 
+
 ## Research Questions
 1. What content trends in each country?
 2. Patterns in the timing of trending videos.
@@ -18,7 +19,9 @@ We utilize the YouTube Trending Video Dataset, focusing on data from the USA, Ca
 
 
 ## Description of your app & sketch
-The YouTube Trending Video Analytics Dashboard's main page visualizes the spread of trending videos, segmented by dates and geographical regions. With a selection menu, users can hone in on trends within the US, Canada, or Mexico. A date range picker further customizes the trend display. The homepage's word cloud dynamically illustrates prevalent terms from video titles, offering quick visual cues to discern viewer preferences and inform content strategy. The dashboard's scrolling interface provides insight into YouTube's popularity mechanics by allowing comparative analysis of genre attention, video popularity time, channel success, and the duration from video posting to popular status.
+### Implementation
+
+Our dashboard provides a multifaceted view of YouTube trending video data, incorporating interactive visualizations such as a heatmap, word cloud, top 5 trending videos, and a bar chart of the top 10 categories. Each component offers a unique lens through which the data can be understood, providing users with a comprehensive overview of trending content on YouTube.
 
 
 #### Sketch of the application
@@ -29,6 +32,11 @@ The YouTube Trending Video Analytics Dashboard's main page visualizes the spread
 - Ruomeng Tian
 - Zerui Zhang
 - Hanwen Zhang
+
+## Acknowledgements
+- Dash
+- Plotly
+- Pandas
 
 
 ## License
