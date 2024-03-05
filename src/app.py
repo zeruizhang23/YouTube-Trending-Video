@@ -11,6 +11,7 @@ from Top_10_Categories import generate_top10_categories
 df = pd.read_csv("Youtube-Trending-Video.csv")
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 
 # the sidebar layout
 sidebar = dbc.Col(
@@ -79,12 +80,12 @@ app.layout = dbc.Container([
                                 className="mb-2"
                             ),
                             dcc.Graph(id='heatmap-graph',style={'width': '100%', 'height': 'auto'})
-                        ], 
+                        ],
                         md=6,
                         className="mb-4"
                     ),
                     dbc.Col(
-                        html.Div(id='top-5-videos-content'), 
+                        html.Div(id='top-5-videos-content'),
                         md=6,
                         className="mb-4"
                     )
