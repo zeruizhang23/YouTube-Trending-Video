@@ -1,0 +1,8 @@
+dash==2.15.0
+dash_bootstrap_components
+nltk
+pandas
+plotly
+wordcloud
+gunicorn
+dash-tools
