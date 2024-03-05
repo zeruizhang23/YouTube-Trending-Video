@@ -12,49 +12,86 @@ df = pd.read_csv("Youtube-Trending-Video.csv")
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+# the sidebar layout
+sidebar = dbc.Col(
+    [
+        html.Div(
+            html.H2("YouTube", className="display-4"),
+            style={"background-color": "white", "padding": "10px", "margin-bottom": "10px"}
+        ),
+        html.Hr(),
+        dbc.Nav(
+            [
+                html.Div(
+                    dcc.Dropdown(
+                        id='country-dropdown',
+                        options=[{'label': country, 'value': country} for country in df['country'].dropna().unique()],
+                        value=df['country'].dropna().unique()[0],
+                        className="mt-4",
+                        placeholder="Select Country",
+                    ),
+                    style={"background-color": "white", "padding": "10px", "margin-bottom": "10px"}
+                ),
+                html.Div(
+                    dcc.Slider(
+                        id='time-slider',
+                        min=0,
+                        max=20,
+                        step=1,
+                        value=10,
+                        marks={i: str(i) for i in range(21)},
+                        className="mt-4",
+                    ),
+                    style={"background-color": "white", "padding": "10px", "margin-bottom": "10px"}
+                ),
+            ],
+            vertical=True,
+            pills=True,
+        ),
+    ],
+    style={"position": "fixed", "top": 0, "left": 0, "bottom": 0, "width": "16rem", "padding": "2rem 1rem","background-color": "grey"},
+    md=3,
+)
+
+
 app.layout = dbc.Container([
     dbc.Row([
-        dbc.Col(html.H1('YouTube Trending Videos Dashboard'), width=12)
+        sidebar,
+        dbc.Col(
+            md=9,
+            style={'margin-left': '18rem'},
+            children=[
+                dbc.Row([
+                    dbc.Col(dcc.Graph(id='top-10-categories-graph',style={'width': '100%', 'height': 'auto'}),width=6),
+                    dbc.Col(html.Img(id='wordcloud-image', style={'width': '100%', 'height': 'auto'}), width=6, style={'margin-top': '110px'})
+                ]),
+                dbc.Row([
+                    dbc.Col(
+                        [
+                            dcc.Dropdown(
+                                id='heatmap-metric-selector',
+                                options=[
+                                    {'label': 'View Count', 'value': 'view_count'},
+                                    {'label': 'Likes', 'value': 'likes'},
+                                    {'label': 'Comment Count', 'value': 'comment_count'}
+                                ],
+                                value='view_count',
+                                className="mb-2"
+                            ),
+                            dcc.Graph(id='heatmap-graph',style={'width': '100%', 'height': 'auto'})
+                        ], 
+                        md=6,
+                        className="mb-4"
+                    ),
+                    dbc.Col(
+                        html.Div(id='top-5-videos-content'), 
+                        md=6,
+                        className="mb-4"
+                    )
+                ])
+            ]
+        ),
     ]),
-    dbc.Row([
-        dbc.Col([
-            html.Div([
-                dcc.Dropdown(
-                    id='country-dropdown',
-                    options=[{'label': country, 'value': country} for country in df['country'].dropna().unique()],
-                    value='Canada'
-                ),
-                html.Img(id='wordcloud-image')
-            ]),
-            dcc.Dropdown(
-                id='heatmap-metric-selector',
-                options=[
-                    {'label': 'View Count', 'value': 'view_count'},
-                    {'label': 'Likes', 'value': 'likes'},
-                    {'label': 'Comment Count', 'value': 'comment_count'}
-                ],
-                value='view_count'
-             ),
-            dcc.Graph(id='heatmap-graph')
-        ], md=6),
-        dbc.Col([
-            dcc.Dropdown(
-                id='country-selector',
-                options = [{'label': country, 'value': country} for country in df['country'].dropna().unique()],
-                value='US',
-                style={'width': '100%', 'margin-bottom': '20px'}
-            ),
-            html.Div(id='top-5-videos-content'),
-            html.H1('Top 10 Most Popular YouTube Video Categories'),
-            dcc.Dropdown(
-                id='country-choose',
-                options=[{'label': 'All', 'value': 'All'}]+[{'label': country, 'value': country} for country in df['country'].dropna().unique()],
-                value='All',
-                clearable=False,
-            ),
-            dcc.Graph(id='top-10-categories-graph')
-        ], md=6)
-    ])
 ], fluid=True)
 
 
@@ -63,7 +100,7 @@ app.layout = dbc.Container([
     [Input('country-dropdown', 'value')]
 )
 def update_image(selected_country):
-    return generate_wordcloud(df, selected_country, width=700, height=300)
+    return generate_wordcloud(df, selected_country)
 
 @app.callback(
     Output('heatmap-graph', 'figure'),
@@ -74,14 +111,14 @@ def update_heatmap(selected_metric):
 
 @app.callback(
     Output('top-5-videos-content', 'children'),
-    [Input('country-selector', 'value')]
+    [Input('country-dropdown', 'value')]
 )
 def update_top5_videos(selected_country):
     return generate_top5_videos(df,selected_country)
 
 @app.callback(
     Output('top-10-categories-graph', 'figure'),
-    [Input('country-choose', 'value')]
+    [Input('country-dropdown', 'value')]
 )
 def update_top10_categories(selected_country):
     return generate_top10_categories(df,selected_country)

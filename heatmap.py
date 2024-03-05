@@ -19,9 +19,9 @@ def generate_heatmap(df, selected_metric ='view_count', metrics=['view_count', '
     print(aggregated_data.shape)
     fig = px.imshow(
         aggregated_data,
-        labels=dict(x="Hour of Day", y="Day of Week", color=selected_metric.capitalize()),
+        #labels=dict(x="Hour of Day", y="Day of Week", color=selected_metric.capitalize()),
         x=[str(i) for i in range(24)],
-        y=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        y=['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.'],
         color_continuous_scale='PuRd',
         aspect='auto'
     )
@@ -29,7 +29,7 @@ def generate_heatmap(df, selected_metric ='view_count', metrics=['view_count', '
     fig.update_layout(
         xaxis_nticks=24,
         yaxis_nticks=7,
-        margin=dict(t=50, l=50, b=50, r=50),
+        margin=dict(t=20, l=20, b=20, r=20),
         hovermode='closest'
     )
     

@@ -20,7 +20,7 @@ def clean_tokenize(text, stop_words):
     words = [word for word in words if len(word) > 2 and not any(char.isdigit() for char in word)]
     return words
 
-def generate_wordcloud(df, selected_country, width, height):
+def generate_wordcloud(df, selected_country):
     additional_stopwords = set(['-', '|', 'official', 'trailer', '2023', '2024', 'video']) 
     stop_words = set(stopwords.words('english')) | additional_stopwords
 
@@ -30,7 +30,7 @@ def generate_wordcloud(df, selected_country, width, height):
     words = clean_tokenize(text, stop_words)
     word_counts = Counter(words)
     
-    wordcloud = WordCloud(width=width, height=height, background_color='white').generate_from_frequencies(word_counts)
+    wordcloud = WordCloud(background_color='white').generate_from_frequencies(word_counts)
     img = wordcloud.to_image()
     with BytesIO() as buffer:
         img.save(buffer, 'png')
