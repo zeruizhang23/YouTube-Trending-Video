@@ -8,7 +8,8 @@ from mywordcloud import generate_wordcloud
 from Top_5_videos import generate_top5_videos
 from Top_10_Categories import generate_top10_categories
 
-df = pd.read_csv("YouTube-Trending-Video.csv")
+url = 'https://raw.githubusercontent.com/marinatian/YouTube-Trending-Video/main/YouTube-Trending-Video.csv'
+df = pd.read_csv(url)
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
